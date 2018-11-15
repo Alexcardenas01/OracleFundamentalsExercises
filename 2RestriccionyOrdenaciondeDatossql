@@ -1,0 +1,58 @@
+--Limitación de filas por medio de clausulas
+-- Usando WHERE (Recuperar todos los empleados pertenecientes al departamento 90)
+SELECT * FROM employees WHERE department_id = 90;
+SELECT * FROM employees WHERE department_id IN (90);
+SELECT * FROM employees WHERE department_id LIKE  '%90';
+SELECT * FROM employees WHERE department_id = (900/10);
+
+SELECT * FROM employees WHERE hire_date LIKE('%04')
+ORDER BY salary;
+
+-- Usando =, <=, >=
+SELECT last_name, job_id, department_id FROM employees WHERE last_name = 'Whalen';
+SELECT last_name FROM employees WHERE hire_date = '17-06-03';
+SELECT last_name, hire_date FROM employees;
+-- Usando Betwwen, in, like y null
+SELECT last_name, job_id, salary, salary*12 AS anual FROM employees WHERE salary BETWEEN 1000 AND 4000
+ORDER BY anual;
+
+-- Condiciones mediante IN
+SELECT employee_id, last_name, department_id FROM employees
+WHERE department_id IN(20,50,90)
+ORDER BY salary;
+
+--Condiciones usando like
+
+SELECT * FROM countries WHERE country_name LIKE '%a%'
+ORDER BY region_id DESC;
+
+SELECT employee_id , last_name, job_id FROM employees WHERE job_id LIKE '%SA\_%' ESCAPE '\';
+
+--Condiciones usando NULL
+SELECT employee_id, last_name, first_name, manager_id FROM employees WHERE manager_id IS NOT NULL;
+DESC employees;
+UPDATE employees SET manager_id = 100 WHERE last_name = 'Cárdenas';
+
+-- Condiciones lógicas mediante operadores AND, OR Y NOT
+
+SELECT * FROM employees
+WHERE salary > 1000 OR job_id LIKE '%A';
+
+
+SELECT * FROM employees
+WHERE salary >= 10000 AND job_id LIKE '%MAN%';
+
+--REGLAS DE PRIORIDAD
+--Aritméticos - concatenación - comparación - is not - not between - distinto de - NOT - AND - OR   
+
+SELECT last_name, job_id, salary
+FROM employees
+WHERE job_id = 'SA_REP' OR job_id = 'AD_PRES'
+AND salary > 15000;
+
+SELECT last_name, job_id, salary
+FROM employees
+WHERE (job_id = 'SA_REP' OR job_id = 'AD_PRES')
+AND salary > 15000;
+
+--Uso de variables de sustitución 
